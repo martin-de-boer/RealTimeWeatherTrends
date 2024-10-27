@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bar Chart Example</title>
+
+<script src="../static/lib/socket.io.js"></script>
+<script src="../static/lib/core.js"></script>
+<script src="../static/lib/chart.js"></script>
+<script src="../static/lib/linechart.js"></script>
+<style>
+	body {
+		background-color: rgb(229, 234, 242);
+	}
+	.hidden {
+		display: none
+	}
+	.grid-container {
+		display: grid;
+		grid-template-columns: 33.3% 33.3% 33.3%;
+		border: 3px solid rgba(0, 0, 0, 0.5);
+		width: 95%;
+		height: 80%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.grid-item {
+		width: 100%;
+		height: 100%;
+		background-color: rgb(229, 234, 242);
+		border: 1px solid rgba(0, 0, 0, 0.5);
+		padding: 20px;
+		font-size: 30px;
+		text-align: center;
+		box-sizing: border-box;
+	}
+</style>
+
+</head>
+<body>
+	<nav>
+		<h1><i>Real-Time</i> Weather Trends</h1>		
+	</nav>
+
+	<img class="hidden" width="64" height="64" src="https://img.icons8.com/dusk/64/no-rain.png" alt="no-rain"/>
+		<img class="hidden" width="64" height="64" src="https://img.icons8.com/dusk/64/rain--v1.png" alt="rain--v1"/>
+		<img class="hidden" width="64" height="64" src="https://img.icons8.com/dusk/64/storm--v1.png" alt="storm--v1"/>
+
+	<!-- Main page -->
+	<div class="grid-container">
+		
+		<!-- General info -->
+		<section class="grid-item">
+
+		</section>
+
+		<!-- The temperature charts -->
+		<section class="grid-item">
+			<canvas id="tempChart"></canvas>
+		</section>
+
+		<!-- Map -->
+		<section class="grid-item">
+
+		</section>
+
+		<!-- The wind chart -->
+		<section class="grid-item">
+			<canvas id="windChart"></canvas>
+		</section>
+
+		<!-- The rain charts -->
+		<section class="grid-item">
+			<canvas id="rainChart"></canvas>
+		</section>
+
+		<!-- Feed -->
+		<section class="grid-item">
+
+		
+		</section>
+	</div>
+
+	<script>
+		let temp_chart_options = {
+	scales: {
+		xAxis: [{
+			display: true,
+			ticks: {
+				beginAtZero: true,
+				min:0,
+				max: 23
+			}
+		}],
+		yAxis: [{
+			display: true,
+			ticks: {
+				beginAtZero: true,
+				min: 0,
+				max: 50
+			}
+		}]
+	},
+	responsive: true,
+};
+
+let temp_data = {
+	labels: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
+	datasets: [{
+		label: "Temperature ",
+		backgroundColor: 'rgba(255, 99, 132, 1)',
+		borderColor: 'rgba(255, 99, 132, 1)',
+		borderWidth: 1,
+		data: [20,21,22,22,22,21,19,19,20,18,15]
+	}]
+};
+
+let rain_data = {
+	labels: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
+	datasets: [{
+		label: 'Rain',
+		backgroundColor: 'rgba(3, 120, 158, 0.2)',
+		borderColor: 'rgba(3, 120, 158, 1)',
+		borderWidth: 1,
+		data: [12, 19, 3, 5, 2, 3]
+	}]
+};
+
+
+   let tempChart = linechart('tempChart', {
+	data: temp_data,
+	options: temp_chart_options
+});
+
+connect_block(tempChart, 'tempchart_data');
+
+let rainChart = new Chart('rainChart', {
+	type: 'bar',
+	data: rain_data,
+	options: temp_chart_options
+});
+
+connect_block(rainChart, 'rainchart_data');
+	</script>
+
+    
+</body>
+</html>
