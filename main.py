@@ -7,21 +7,17 @@ def init(context, data):
 
 @event("connect")
 def connect(context, data):
-	emit("tempchart_data", {
-		"action": "set",
-		"value": ["Sunday", 10]
+	print("connection")
+	emit("dailyTempChart", {
+		"action": "data",
+		"value": {
+			'datasets': [{
+				'label': 'Temperature',
+				'data': [10,0,10,10,9]
+			}],
+			'labels': [0,1,2,3,4,5],
+		}
 	})
+	
 
-	emit("rainchart_data", {
-		"action": "add",
-		"value": ["Monday", 20]
-	})
-
-	emit("windchart_data", {
-		"action": "add",
-		"value": ["Monday", 20]
-	})
-
-
-# starts the server and prevents the program from exiting
 neca.start()
