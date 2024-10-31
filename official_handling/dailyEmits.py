@@ -30,25 +30,25 @@ def calculate_sum():
     #return a list for the emit    
     return [hour,data,1]
 
-def daily_emit(key):
+def daily_emit():
         
     #emit temperature
     data = calculate_avg()
-    emit(key, {
+    emit(config.daily_key, {
     "action" : "set",
     "value" : data
     })
     
     #emit rain
     data = calculate_sum()
-    emit(key, {
+    emit(config.daily_key, {
     "action" : "set",
     "value" : data
     })
 
 #resets the rain + temp chart values
-def daily_reset(key):
-    emit(key, {
+def daily_reset():
+    emit(config.daily_key, {
     "action" : "reset",
     "value" : []
     })

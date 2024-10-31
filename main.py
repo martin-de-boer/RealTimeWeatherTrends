@@ -12,7 +12,7 @@ from official_handling import officialTweetHandler
 def tweet_handler(context, data):
     if data["user"]["id"] == 197131172:
         #if official call handler with formatted data
-        officialTweetHandler.handler(formatTweet.official(data), config.daily_key)
+        officialTweetHandler.handler(formatTweet.official(data))
     else:
         #just emit the tweet to the feed
         emit("x", data)
