@@ -29,7 +29,6 @@ def generate_tweets():
 @event("init")
 def init(context,data):
     generate_tweets()
-    
 
 @event("connect")
 def connect(context,data):
