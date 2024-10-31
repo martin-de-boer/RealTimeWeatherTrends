@@ -66,10 +66,11 @@ function getGradient(ctx, chartArea) {
 }
 
 function determineMaxRain(context) {
-	if (Math.max(...context.chart.data.datasets[1].data) <= 5) return 5;
-	if (Math.max(...context.chart.data.datasets[1].data) <= 10) return 10;
-	if (Math.max(...context.chart.data.datasets[1].data) <= 20) return 20;
-	else return 50;
+	// if (Math.max(...context.chart.data.datasets[1].data) <= 4) return 5;
+	// if (Math.max(...context.chart.data.datasets[1].data) <= 9) return 10;
+	// if (Math.max(...context.chart.data.datasets[1].data) <= 20) return 20;
+	// else return 50;
+	return 50;
 }
 
 function determineTempColor(context) {
@@ -78,9 +79,11 @@ function determineTempColor(context) {
 	return getGradient(ctx, chartArea);
 }
 
-// This function adds 0's (or another value) to the end of the array until it has a certain length
-function addPadding(arr, len, value) {
-	return arr.concat(Array(len - arr.length).fill(value))
+function determineLabelDisplay(value, index, values) {
+	if (index % 2 === 1 || index === 0 || index === values.length - 1) 
+		return '';
+	else 
+		return value;
 }
 
 
@@ -88,16 +91,8 @@ let temp_data = {
 	type: 'line',
 	label: "Temperature",
 	yAxisID: "temp",
-	backgroundColor: function(context) {
-        const {ctx, chartArea} = context.chart;
-		if (!chartArea) return;
-        return getGradient(ctx, chartArea);
-    },
-	borderColor: function(context) {
-        const {ctx, chartArea} = context.chart;
-		if (!chartArea) return;
-        return getGradient(ctx, chartArea);
-    },
+	backgroundColor: (context) => determineTempColor(context),
+	borderColor: (context) => determineTempColor(context),
 	borderWidth: 1,
 	data: []
 };
@@ -115,9 +110,7 @@ let rain_data = {
 let daily_chart_options = {
 	scales: {
 		x: {
-			grid: {
-				tickLength: 0
-			},
+			grid: { tickLength: 0 },
 			display: true,
 			ticks: {
 				beginAtZero: true,
@@ -128,10 +121,8 @@ let daily_chart_options = {
 				rotation: 0,
 				minRotation: 0,
 				maxRotation: 0,
-				callback: function(value, index, values) {
-					// Hide every odd label and the first and last labels
-					return (index % 2 === 1 || index === 0 || index === values.length - 1) ? '' : value;
-				}
+				// Hide every odd label and the first and last labels
+				callback: (value, index, values) => determineLabelDisplay(value, index, values)
 			}
 		},
 		temp: {
@@ -164,13 +155,16 @@ let daily_chart_options = {
 			}
 		}
 	},
+	animation: {
+		duration: 0
+	},
 	responsive: true,
 };
 
 
 function initialize() {
-	let dailyChart = new Chart('dailyChart', {
-		type: 'bar',
+	document.getElementById("tweets").height = 300;	
+	let daily_chart = barchart('daily_chart_div', {
 		data:  {
 			labels: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
 			datasets: [temp_data, rain_data]
@@ -178,12 +172,14 @@ function initialize() {
 		options: daily_chart_options
 	});
 
-	let map = leaflet("map",{
+	let map = leaflet("map_div",{
 		Location: [52.1326,5.2913],
 		zoom:5
 	});
 	
-	connect_block(dailyChart, 'dailyChart');
-	connect_block(map, "map");
+	var tweet = tweets("tweets");
+	connect_block(daily_chart, 'daily_chart_key');
+	connect_block(map, "map_key");
+	connect_block(tweet, 'x');
 }
 
