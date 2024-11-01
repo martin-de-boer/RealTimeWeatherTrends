@@ -10,13 +10,17 @@ from official_handling import officialTweetHandler
 #decide if official or discussion
 @event("tweet")
 def tweet_handler(context, data):
-    if data["user"]["id"] == 197131172:
-        #if official call handler with formatted data
-        officialTweetHandler.handler(formatTweet.official(data))
+    if data.type() == datetime:
+        officialTweetHandler.handler({"created_at" : data}, False)
+        
     else:
-        #just emit the tweet to the feed
-        emit("x", data)
-        #call discussion_handler here for map etc..
+        if data["user"]["id"] == config.official_id:
+            #if official call handler with formatted data
+            officialTweetHandler.handler(formatTweet.official(data), True)
+        else:
+            #just emit the tweet to the feed
+            emit("x", data)
+            #call discussion_handler here for map etc..
 
 
 def generate_tweets():

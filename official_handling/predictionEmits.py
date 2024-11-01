@@ -4,8 +4,10 @@ from official_handling import config
 
 def prediction_reset(data):
     for i in range(len(config.prediction_values)):
-        if (config.prediction_values[i]["weather_data"]["ptime"] - data[0]["created_at"]).total_seconds() < 600:
+        if (config.prediction_values[i]["weather_data"]["ptime"] - data["created_at"]).total_seconds() < 600:
             config.prediction_values.pop(i)
+            
+    #need scrolling or smth if time passes but no new tweets arrive
             
 def prediction_emit():
         
