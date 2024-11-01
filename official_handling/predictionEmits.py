@@ -10,7 +10,9 @@ def prediction_reset(data):
     #need scrolling or smth if time passes but no new tweets arrive
             
 def prediction_emit():
-        
+    
+    #needs working on format for label
+    
     data = [config.prediction_values[-1]["weather_data"]["ptime"],config.prediction_values[-1]["weather_data"]["temperature"]]
     #emit temperature
     emit(config.prediction_key, {
