@@ -10,8 +10,9 @@ from official_handling import officialTweetHandler
 #decide if official or discussion
 @event("tweet")
 def tweet_handler(context, data):
-    if data.type() == datetime:
+    if type(data) == datetime:
         officialTweetHandler.handler({"created_at" : data}, False)
+        print("time passed")
         
     else:
         if data["user"]["id"] == config.official_id:

@@ -54,4 +54,6 @@ def official(tweet_data):
     
     tweet_data["weather_data"] = weather_data
     
+    tweet_data["created_at"] = date_
+    
     return tweet_data
