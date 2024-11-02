@@ -88,15 +88,27 @@ nav {
 	overflow: auto;
 }
 
+#prediction_chart_div {
+    width: 100%;
+    height: 50%;
+    max-height: 100%;
+}
 
 #daily_chart_div {
     width: 100%;
-    height: 100%;
+    height: 50%;
     max-height: 100%;
 }
 
 #map {
 	height: 100%;
+}
+
+
+#tweets img {
+    max-width: 10%;
+    height: auto;
+    display: block; /* Keeps image within the boundaries */
 }
 
 /* Mobile view */

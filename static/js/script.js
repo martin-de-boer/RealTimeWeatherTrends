@@ -161,9 +161,21 @@ let daily_chart_options = {
 	responsive: true,
 };
 
+let prediction_chart_options = {
+	scales: {
+		x: {
+			type: 'linear',
+			position: 'bottom'
+		}
+	},
+	animation: {
+		duration: 0
+	},
+	responsive: true,
+};
 
 function initialize() {
-	document.getElementById("tweets").height = 300;	
+	document.getElementById("tweets").style.height = 300;	
 	let daily_chart = barchart('daily_chart_div', {
 		data:  {
 			labels: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
@@ -176,10 +188,28 @@ function initialize() {
 		Location: [52.1326,5.2913],
 		zoom:5
 	});
+
+	var prediction_chart = linearchart('prediction_chart_div', {
+		data: {
+			datasets: [{
+				label: 'temperature',
+				data: [],
+				memory: 5
+			}, {
+				label: 'rain',
+				data: [],
+				memory: 5
+			}]
+		},
+		options: prediction_chart_options
+	});
+	
 	
 	var tweet = tweets("tweets");
+
 	connect_block(daily_chart, 'daily_chart_key');
 	connect_block(map, "map_key");
 	connect_block(tweet, 'x');
+	connect_block(prediction_chart, 'prediction_chart_key');
 }
 

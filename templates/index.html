@@ -21,6 +21,7 @@
 <script src="../static/lib/linechart.js"></script>
 <script src="../static/lib/tweets.js"></script>
 <script src="../static/js/script.js"></script>
+<script src="../static/lib/linearchart.js"></script>
 
 </head>
 <body>
@@ -97,7 +98,7 @@
 		<!-- Twitter Feed -->
 		<section class="grid-item">
 			<p><b>Latest Tweets</b></p>
-			<div style="height: 200px; width: 100%; overflow: hidden;" id="tweets"></div>
+			<div style="height: 100%; width: 100%; overflow: hidden;" id="tweets"></div>
 		</section>
 
 		
@@ -109,7 +110,15 @@
 
 		<!-- The temperature and rain charts -->
 		<section class="grid-item grid-item-chart">
-			<canvas id="daily_chart_div"></canvas>
+
+			<div>
+				<canvas id="prediction_chart_div"></canvas>
+			</div>
+		
+			<div>
+				<canvas id="daily_chart_div"></canvas>
+			</div>
+		
 		</section>
 
 		

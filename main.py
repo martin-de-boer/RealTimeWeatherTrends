@@ -10,24 +10,30 @@ from official_handling import officialTweetHandler
 #decide if official or discussion
 @event("tweet")
 def tweet_handler(context, data):
-    if type(data) == datetime:
+    
+    if config.start_time == 0:
+        config.start_time = datetime.strptime(data["created_at"], '%a %b %d %H:%M:%S %z %Y')
+    
+    if len(data) == 1:
         officialTweetHandler.handler({"created_at" : data}, False)
         print("time passed")
+        #generator not implemented yet
         
+    elif data["user"]["id"] == config.official_id:
+        
+        #if official, call handler with formatted data
+        officialTweetHandler.handler(formatTweet.official(data), True)\
+            
     else:
-        if data["user"]["id"] == config.official_id:
-            #if official call handler with formatted data
-            officialTweetHandler.handler(formatTweet.official(data), True)
-        else:
-            #just emit the tweet to the feed
-            emit("x", data)
-            #call discussion_handler here for map etc..
+        #just emit the tweet to the feed
+        emit("x", data)
+        #call discussion_handler here for map etc..
 
 
 def generate_tweets():
     generate_data(
         data_file = "data/weer.json", # file location
-        time_scale = 40000, # time speedup factor
+        time_scale = 10000, # time speedup factor
         event_name = 'tweet', # to which event is the data sent
     )
 
@@ -37,8 +43,6 @@ def init(context,data):
 
 @event("connect")
 def connect(context,data):
-    print("connected")  
-
-config.init()
+    print("connected")
 
 neca.start()

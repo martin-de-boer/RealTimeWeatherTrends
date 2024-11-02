@@ -8,26 +8,42 @@ def prediction_reset(data):
         if (config.prediction_values[i]["weather_data"]["ptime"] - data["created_at"]).total_seconds() < 600:
             config.prediction_values.pop(i)
         i = i+1
-            
-    #need scrolling or smth if time passes but no new tweets arrive
+    
+    emit(config.prediction_key, {
+    "action" : "reset",
+    "series" : "temperature",
+    })
+    
+    emit(config.prediction_key, {
+    "action" : "reset",
+    "series" : "rain",
+    })    
+
             
 def prediction_emit():
     
-    #needs working on format for label
+    ptime = [(i["weather_data"]["ptime"] - config.start_time).total_seconds() / 60 for i in config.prediction_values]
     
-    data = [datetime.strftime(config.prediction_values[-1]["weather_data"]["ptime"], '%a %b %d %H:%M'),config.prediction_values[-1]["weather_data"]["temperature"]]
     
     #emit temperature
+    data = [i["weather_data"]["temperature"] for i in config.prediction_values]
+    
+    vals = [list(i) for i in zip(ptime, data)]
+
     emit(config.prediction_key, {
     "action" : "set",
-    "value" : data
+    "series" : "temperature",
+    "value" : vals
     })
     
     
-    data = [datetime.strftime(config.prediction_values[-1]["weather_data"]["ptime"], '%H:%M'),config.prediction_values[-1]["weather_data"]["rain"]]
-    
     #emit rain
+    data = [i["weather_data"]["rain"] for i in config.prediction_values]
+    
+    vals = [list(i) for i in zip(ptime, data)]
+    
     emit(config.prediction_key, {
     "action" : "set",
-    "value" : data
+    "series" : "rain",
+    "value" : vals
     })

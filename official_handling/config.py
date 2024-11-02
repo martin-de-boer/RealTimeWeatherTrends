@@ -1,12 +1,8 @@
-daily_key = "daily_chart_key"
-prediction_key = ""
+daily_key = "daily_chart_key" #barchart, with a line type dataset for temperature
+prediction_key = "prediction_chart_key" #linear chart
 official_id = 197131172
 
-def init():
-    #contains all data of official tweets for the hour
-    global hour_values
-    hour_values = []
-    
-    #contains predicton data
-    global prediction_values
-    prediction_values = []
+start_time = 0
+
+hour_values = []
+prediction_values = []
