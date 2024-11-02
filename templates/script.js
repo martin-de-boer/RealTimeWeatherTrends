@@ -57,3 +57,4 @@ let rainChart = new Chart('rainChart', {
 });
 
 connect_block(rainChart, 'rainchart_data');
+
