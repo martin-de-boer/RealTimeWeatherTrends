@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Bar Chart Example</title>
+<title>Real-Time Weather Trends</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,6 +10,7 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 <link rel="stylesheet" href="../static//style/style.css">
+<link rel="stylesheet" href="../static//style/tweet.css">
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script src="/static/lib/map.js"></script>
@@ -23,16 +24,13 @@
 <script src="../static/js/script.js"></script>
 <script src="../static/lib/log.js"></script>
 
+
 </head>
 <body>
 	<nav>
 		<img class="logo" src="https://cdn-icons-png.flaticon.com/512/10127/10127236.png">
 		<p class="logo-name"><i>Real-Time</i> Weather Trends</p>		
 	</nav>
-
-	<img class="hidden" width="64" height="64" src="https://img.icons8.com/dusk/64/no-rain.png" alt="no-rain"/>
-	<img class="hidden" width="64" height="64" src="https://img.icons8.com/dusk/64/rain--v1.png" alt="rain--v1"/>
-	<img class="hidden" width="64" height="64" src="https://img.icons8.com/dusk/64/storm--v1.png" alt="storm--v1"/>
 
 	<!-- Main page -->
 	<div class="grid-container">
@@ -98,7 +96,7 @@
 		<!-- Twitter Feed -->
 		<section class="grid-item">
 			<p><b>Latest Tweets</b></p>
-			<div style="height: 100%; width: 100%; overflow: hidden;" id="tweets"></div>
+			<div style="width: 100%; overflow: hidden;" id="tweets"></div>
 		</section>
 
 		
