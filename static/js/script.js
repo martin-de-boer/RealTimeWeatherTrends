@@ -267,7 +267,7 @@ function initialize() {
     connect_block(log2, 'log_temp_key');
 
 	var log3 = log_block('log_rain');
-    connect_block(log3, 'log_rainkey');
+    connect_block(log3, 'log_rain_key');
 
 	var log4 = log_block('log_uv');
     connect_block(log4, 'log_uv_key');

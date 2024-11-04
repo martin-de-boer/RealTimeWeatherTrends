@@ -50,12 +50,13 @@ def general_info(data):
         "message": str(data["place"]["full_name"])
     })
     
+    #temp F or C?
     emit("log_temp_key",{
-        "message": str(data["weather_data"]["temperature"])
+        "message": str(data["weather_data"]["temperature"]) + " ºC"
     })
     
     emit("log_rain_key",{
-        "message": str(data["weather_data"]["rain"])
+        "message": str(data["weather_data"]["rain"]) + " mm"
     })
     
     emit("log_uv_key",{
@@ -67,19 +68,19 @@ def general_info(data):
     })
     
     emit("log_wf_key",{
-        "message": str(data["weather_data"]["wind_force"])
+        "message": str(data["weather_data"]["wind_force"]) + " bft"
     })
     
     emit("log_ws_key",{
-        "message": str(data["weather_data"]["wind_speed"])
+        "message": str(data["weather_data"]["wind_speed"]) + " m/s"
     })
     
     emit("log_hum_key",{
-        "message": str(data["weather_data"]["humidity"])
+        "message": str(data["weather_data"]["humidity"]) + "%"
     })
     
     emit("log_ps_key",{
-        "message": str(data["weather_data"]["pressure"])
+        "message": str(data["weather_data"]["pressure"]) + " hPa"
     })
     
     emit("log_ps_change_key",{
