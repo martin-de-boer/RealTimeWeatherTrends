@@ -48,7 +48,7 @@ def daily_emit():
 
 #resets the rain + temp chart values
 def daily_reset():
+    print("reset")
     emit(config.daily_key, {
     "action" : "reset",
-    "value" : []
     })

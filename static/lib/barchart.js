@@ -15,17 +15,21 @@ function barchart(id, config = {}) {
     });
 
     function onEvent(data) {
+        
         // Expecting data in the form {action: "set", value: [category, value, datasetIndex]}
-        const [category, value, datasetIndex] = data.value;
+        const [category, value, datasetIndex] = data.value || [];
 
-        // Ensure the dataset index is valid, creating the dataset if it doesn't exist
-        if (!chart.data.datasets[datasetIndex]) {
-            chart.data.datasets[datasetIndex] = {
-                label: `Dataset ${datasetIndex + 1}`,
-                data: new Array(chart.data.labels.length).fill(0), // Initialize with zeros
-                backgroundColor: "rgba(54, 162, 235, 0.6)",
-                borderWidth: 1
-            };
+        if (typeof data.value !== typeof void 0)
+        {
+            // Ensure the dataset index is valid, creating the dataset if it doesn't exist
+            if (!chart.data.datasets[datasetIndex]) {
+                chart.data.datasets[datasetIndex] = {
+                    label: `Dataset ${datasetIndex + 1}`,
+                    data: new Array(chart.data.labels.length).fill(0), // Initialize with zeros
+                    backgroundColor: "rgba(54, 162, 235, 0.6)",
+                    borderWidth: 1
+                };
+            }
         }
 
         switch (data.action) {
@@ -42,8 +46,23 @@ function barchart(id, config = {}) {
                 break;
             
             case "reset":
-                // Clear all labels and data
+                // Clear all data
                 chart.data.datasets.forEach(ds => ds.data = []);
+                break;
+
+            case "data":
+                // replace the entire data with the new data
+                chart.data = data.value;
+                break;
+            
+            case "remove":
+                // Clear all category labels
+                chart.data.labels = [];
+                
+                // Clear data in all datasets
+                chart.data.datasets.forEach(dataset => {
+                    dataset.data = [];
+                });
                 break;
             
             default:

@@ -107,6 +107,26 @@ let rain_data = {
 	data: []
 }
 
+let temp_data2 = {
+	type: 'line',
+	label: "Temperature",
+	yAxisID: "temp",
+	backgroundColor: (context) => determineTempColor(context),
+	borderColor: (context) => determineTempColor(context),
+	borderWidth: 1,
+	data: []
+};
+
+let rain_data2 = {
+	label: 'Rain',
+	yAxisID: "rain",
+	backgroundColor: 'rgba(3, 120, 158, 0.2)',
+	borderColor: 'rgba(3, 120, 158, 1)',
+	borderWidth: 1,
+	barPercentage: 1.33,
+	data: []
+}
+
 let daily_chart_options = {
 	scales: {
 		x: {
@@ -164,8 +184,44 @@ let daily_chart_options = {
 let prediction_chart_options = {
 	scales: {
 		x: {
-			type: 'linear',
-			position: 'bottom'
+			grid: { tickLength: 0 },
+			display: true,
+			ticks: {
+				padding: 0, // display label inside chart,
+				mirror: true,
+				rotation: 0,
+				minRotation: 0,
+				maxRotation: 0,
+			}
+		},
+		temp: {
+			position: 'left',
+			display: true,
+			min: (context) => Math.floor(Math.min(...context.chart.data.datasets[0].data) - 3),
+			max: (context) => Math.ceil(Math.max(...context.chart.data.datasets[0].data) + 3),
+			ticks: {
+				rotation: 0,
+				callback: function(value, index, values) {
+					// Hide first and last labels
+					return (index === 0 || index === values.length - 1) ? '' : value;
+				}
+			}
+		},
+		rain: {
+			position: 'right',
+			display: true,
+			min: 0,
+			max: (context) => determineMaxRain(context),
+			grid: {
+				drawOnChartArea: false
+			},
+			ticks: {
+				rotation: 0,
+				callback: function(value, index, values) {
+					// Hide first and last labels
+					return (index === 0 || index === values.length - 1) ? '' : value;
+				}
+			}
 		}
 	},
 	animation: {
@@ -189,17 +245,9 @@ function initialize() {
 		zoom:5
 	});
 
-	var prediction_chart = linearchart('prediction_chart_div', {
+	var prediction_chart = barchart('prediction_chart_div', {
 		data: {
-			datasets: [{
-				label: 'temperature',
-				data: [],
-				memory: 5
-			}, {
-				label: 'rain',
-				data: [],
-				memory: 5
-			}]
+			datasets: [temp_data2, rain_data2]
 		},
 		options: prediction_chart_options
 	});
