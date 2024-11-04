@@ -241,7 +241,7 @@ function initialize() {
 	});
 
 	let map = leaflet("map_div",{
-		Location: [52.1326,5.2913],
+		Location: [52.1326, 5.2913],
 		zoom:5
 	});
 
@@ -251,7 +251,7 @@ function initialize() {
 		},
 		options: prediction_chart_options
 	});
-	
+
 	
 	var tweet = tweets("tweets");
 

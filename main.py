@@ -5,7 +5,7 @@ from datetime import *
 from official_handling import formatTweet
 from official_handling import config
 from official_handling import officialTweetHandler
-
+from official_handling import discussionTweetHandler
 
 #decide if official or discussion
 @event("tweet")
@@ -21,9 +21,7 @@ def tweet_handler(context, data):
         officialTweetHandler.handler(formatTweet.official(data))\
             
     else:
-        #just emit the tweet to the feed
-        emit("x", data)
-        #call discussion_handler here for map etc..
+        discussionTweetHandler.handler(data)
 
 
 def generate_tweets():

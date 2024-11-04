@@ -3,23 +3,18 @@ from datetime import *
 from official_handling import config
 
 def add_hoverable_marker(coords, info_text):
-    emit("map", {
+    emit("map_key", {
         "action": "draw",
         "type": "marker",
-        "name": "hover_marker",
+        "name": coords,
         "coordinates": coords,  # Coordinates as [latitude, longitude]
         "options": {
-            "title": "Marker",  # Tooltip title on hover
-            "popup": info_text  # Popup text to display on hover
+            "title": info_text
         }
     })
 
-def is_number(s):
-    try:
-        int(s)
-        return True
-    except ValueError:
-        return False
+def is_exist(s):
+    return s != None
 
 def calculate_avg(data):
         
@@ -31,9 +26,11 @@ def calculate_avg(data):
     return [c1, c0]
 
 def handler(data):
-    if is_number(data["geo"]["coordinates"][0]):
+    emit("x", data)
+    
+    if is_exist(data["geo"]):
         add_hoverable_marker(data["geo"]["coordinates"], data["text"])
-    elif is_number(data["place"]["bounding_box"]["coordinates"][0][0][0]):
+        
+    elif is_exist(data["place"]["bounding_box"]):
         coords = data["place"]["bounding_box"]["coordinates"][0]
         add_hoverable_marker(calculate_avg(coords), data["text"])
-        
