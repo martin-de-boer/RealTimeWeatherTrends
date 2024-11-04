@@ -13,6 +13,7 @@ def add_hoverable_marker(coords, info_text):
         }
     })
 
+
 def is_exist(s):
     return s != None
 

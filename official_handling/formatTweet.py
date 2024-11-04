@@ -57,3 +57,16 @@ def official(tweet_data):
     tweet_data["created_at"] = date_
     
     return tweet_data
+
+def discussion(tweet):
+    # Replace username with 'anonymous'
+    tweet['user']['name'] = "anonymous"
+    tweet['user']['screen_name'] = "anonymous"
+    
+    # Remove any '@' mentions in the text
+    tweet_text = tweet['text']
+    words = tweet_text.split()
+    cleaned_words = [word for word in words if not word.startswith("@")]
+    tweet['text'] = ' '.join(cleaned_words)
+    
+    return tweet

@@ -18,10 +18,10 @@ def tweet_handler(context, data):
     if data["user"]["id"] == config.official_id:
         
         #if official, call handler with formatted data
-        officialTweetHandler.handler(formatTweet.official(data))\
+        officialTweetHandler.handler(formatTweet.official(data))
             
     else:
-        discussionTweetHandler.handler(data)
+        discussionTweetHandler.handler(formatTweet.discussion(data))
 
 
 def generate_tweets():
