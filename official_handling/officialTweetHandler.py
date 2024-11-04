@@ -15,48 +15,81 @@ def next_hour(values,new_data):
 
 #DAILY VALUES ---------------------------------------------------------------------------------------
 
-def daily_handler(data, isTweet):
-    #if not tweet just do resets if needed
-    if not isTweet:
-        if next_day(config.hour_values, data["created_at"]):
-            daily_reset()
-        if next_hour(config.hour_values, data["created_at"]):
-            config.hour_values = []
-            
+def daily_handler(data):
+    #if this is the first value, initialize
+    if config.hour_values == []:
+        daily_reset()
+        config.hour_values.append(data)
+
+    #if next_day reset daily charts
     else:
-        #if this is the first value, initialize
-        if config.hour_values == []:
+        if next_day(config.hour_values, data["weather_data"]["ptime"]):
             daily_reset()
-            config.hour_values.append(data)
 
-        #if next_day reset daily charts
-        else:
-            if next_day(config.hour_values, data["weather_data"]["ptime"]):
-                daily_reset()
+        #in next_hour reset hour_values
+        if next_hour(config.hour_values, data["weather_data"]["ptime"]):
+            config.hour_values = []
 
-            #in next_hour reset hour_values
-            if next_hour(config.hour_values, data["weather_data"]["ptime"]):
-                config.hour_values = []
-
-            config.hour_values.append(data)
-            
-        #emit to daily temperature+rain chart
-        daily_emit()
+        config.hour_values.append(data)
+        
+    #emit to daily temperature+rain chart
+    daily_emit()
 
 #PREDICTION VALUES ---------------------------------------------------------------------------------------
 
-def prediction_handler(data, isTweet): # is not a tweet
-    if not isTweet:
-        prediction_reset(data)
+def prediction_handler(data):
     
-    else: # is a tweet
-        config.prediction_values.append(data)
-        prediction_reset(data)
-        prediction_emit()
+    config.prediction_values.append(data)
+    prediction_reset(data)
+    prediction_emit()
 
+#PREDICTION VALUES ---------------------------------------------------------------------------------------
+
+def general_info(data):
+    emit ("log_loc_key", {
+        "message": str(data["place"]["full_name"])
+    })
+    
+    emit("log_temp_key",{
+        "message": str(data["weather_data"]["temperature"])
+    })
+    
+    emit("log_rain_key",{
+        "message": str(data["weather_data"]["rain"])
+    })
+    
+    emit("log_uv_key",{
+        "message": str(data["weather_data"]["uv"])
+    })
+    
+    emit("log_wd_key",{
+        "message": str(data["weather_data"]["wind_direction"])
+    })
+    
+    emit("log_wf_key",{
+        "message": str(data["weather_data"]["wind_force"])
+    })
+    
+    emit("log_ws_key",{
+        "message": str(data["weather_data"]["wind_speed"])
+    })
+    
+    emit("log_hum_key",{
+        "message": str(data["weather_data"]["humidity"])
+    })
+    
+    emit("log_ps_key",{
+        "message": str(data["weather_data"]["pressure"])
+    })
+    
+    emit("log_ps_change_key",{
+        "message": str(data["weather_data"]["pressure_change"])
+    })
 
 #HANDLER ---------------------------------------------------------------------------------------
-def handler(data, isTweet):
+def handler(data):
     print(data["created_at"])
-    daily_handler(data, isTweet)
-    prediction_handler(data, isTweet)
+    daily_handler(data)
+    prediction_handler(data)
+    general_info(data)
+    

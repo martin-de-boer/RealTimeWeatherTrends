@@ -259,5 +259,36 @@ function initialize() {
 	connect_block(map, "map_key");
 	connect_block(tweet, 'x');
 	connect_block(prediction_chart, 'prediction_chart_key');
+
+	var log1 = log_block('log_loc');
+    connect_block(log1, 'log_loc_key');
+
+	var log2 = log_block('log_temp');
+    connect_block(log2, 'log_temp_key');
+
+	var log3 = log_block('log_rain');
+    connect_block(log3, 'log_rainkey');
+
+	var log4 = log_block('log_uv');
+    connect_block(log4, 'log_uv_key');
+
+	var log5 = log_block('log_wd');
+    connect_block(log5, 'log_wd_key');
+
+	var log6 = log_block('log_wf');
+    connect_block(log6, 'log_wf_key');
+
+	var log7 = log_block('log_ws');
+    connect_block(log7, 'log_ws_key');
+
+	var log8 = log_block('log_hum');
+    connect_block(log8, 'log_hum_key');
+
+	var log9 = log_block('log_ps');
+    connect_block(log9, 'log_ps_key');
+
+	var log10 = log_block('log_ps_change');
+    connect_block(log10, 'log_ps_change_key');
+
 }
 

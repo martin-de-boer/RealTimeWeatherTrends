@@ -21,7 +21,7 @@
 <script src="../static/lib/linechart.js"></script>
 <script src="../static/lib/tweets.js"></script>
 <script src="../static/js/script.js"></script>
-<script src="../static/lib/linearchart.js"></script>
+<script src="../static/lib/log.js"></script>
 
 </head>
 <body>
@@ -43,53 +43,53 @@
 				<tr><td colspan="2"><b>General Weather Information</b></td></tr>
 				<tr>
 					<td>Location</td>
-					<td style="vertical-align: middle;"><img src="../static/res/pin.png" style="height: 18px; display: inline-block; margin: 0; vertical-align: middle;"> Buren, NL</td>
+					<td style="vertical-align: middle;"><img src="../static/res/pin.png" style="height: 18px; display: inline-block; margin: 0; vertical-align: middle;"> <div id="log_loc"></div></td>
 				</tr>
 				<tr>
 					<td>Temperature</td>
-					<td>31</td>
+					<td><div id="log_temp"></div></td>
 				</tr>
 				<tr class="empty-table-row"></tr>
 
 				<tr><td colspan="2"><b>Rain & UV</b></td></tr>
 				<tr>
 					<td>Rain</td>
-					<td>0,0 mm</td>
+					<td><div id="log_rain"></div></td>
 				</tr>
 				<tr></tr>
 				<tr>
 					<td>UV-level</td>
-					<td>5</td>
+					<td><div id="log_uv"></div></td>
 				</tr>
 				<tr class="empty-table-row"></tr>
 
 				<tr><td colspan="2"><b>Wind</b></td></tr>
 				<tr>
 					<td>Wind direction</td>
-					<td>ONO</td>
+					<td><div id="log_wd"></div></td>
 				</tr>
 				<tr>
 					<td>Wind force</td>
-					<td>3</td>
+					<td><div id="log_wf"></div></td>
 				</tr>
 				<tr>
 					<td>Wind speed</td>
-					<td>12 m/s</td>
+					<td><div id="log_ws"></div></td>
 				</tr>
 				<tr class="empty-table-row"></tr>
 				
 				<tr><td colspan="2"><b>Humidity & Pressure</b></td></tr>	
 				<tr>
 					<td>Humidity</td>
-					<td>57%</td>
+					<td><div id="log_hum"></div></td>
 				</tr>
 				<tr>
 					<td>Pressure</td>
-					<td>101 hPa</td>
+					<td><div id="log_pressure"></div></td>
 				</tr>
 				<tr>
 					<td>Pressure change</td>
-					<td>10 mPa</td>
+					<td><div id="log_ps_change"></div></td>
 				</tr>
 
 			</table>

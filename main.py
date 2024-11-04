@@ -14,15 +14,11 @@ def tweet_handler(context, data):
     if config.start_time == 0:
         config.start_time = datetime.strptime(data["created_at"], '%a %b %d %H:%M:%S %z %Y')
     
-    if len(data) == 1:
-        officialTweetHandler.handler({"created_at" : data}, False)
-        print("time passed")
-        #generator not implemented yet
         
-    elif data["user"]["id"] == config.official_id:
+    if data["user"]["id"] == config.official_id:
         
         #if official, call handler with formatted data
-        officialTweetHandler.handler(formatTweet.official(data), True)\
+        officialTweetHandler.handler(formatTweet.official(data))\
             
     else:
         #just emit the tweet to the feed

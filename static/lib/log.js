@@ -3,13 +3,10 @@ function log_block(id, config = {}) {
 
     function onEvent(data) {
         // handle data events given by the connect function
-
+        element.innerHTML = '';
         // add the message as a paragraph
         var p = document.createElement("p");
-        p.innerHTML = data.message;
-        if (!data.message) {
-            p.innerHTML = "No message given";
-        }
+        p.innerHTML = data.message || "No message given";
         element.appendChild(p);
     }
 
