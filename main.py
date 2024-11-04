@@ -27,7 +27,7 @@ def tweet_handler(context, data):
 def generate_tweets():
     generate_data(
         data_file = "data/weer.json", # file location
-        time_scale = 10000, # time speedup factor
+        time_scale = 1000, # time speedup factor
         event_name = 'tweet', # to which event is the data sent
     )
 
